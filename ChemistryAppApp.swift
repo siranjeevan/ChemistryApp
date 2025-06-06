@@ -11,7 +11,7 @@ import SwiftUI
 struct ChemistryAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NetworkMoniter_Previews()
         }
     }
 }

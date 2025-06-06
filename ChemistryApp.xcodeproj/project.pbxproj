@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		74C77B812DF3331C00976C90 /* ChemistryAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */; };
+		74C77B832DF3331C00976C90 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C77B822DF3331C00976C90 /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		74C77B7D2DF3331C00976C90 /* ChemistryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChemistryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChemistryAppApp.swift; sourceTree = "<group>"; };
+		74C77B822DF3331C00976C90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +39,8 @@
 		74C77B742DF3331C00976C90 = {
 			isa = PBXGroup;
 			children = (
+				74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */,
+				74C77B822DF3331C00976C90 /* ContentView.swift */,
 				74C77B7F2DF3331C00976C90 /* ChemistryApp */,
 				74C77B7E2DF3331C00976C90 /* Products */,
 			);
@@ -119,6 +128,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74C77B832DF3331C00976C90 /* ContentView.swift in Sources */,
+				74C77B812DF3331C00976C90 /* ChemistryAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
