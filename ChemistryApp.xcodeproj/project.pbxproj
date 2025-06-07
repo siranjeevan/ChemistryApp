@@ -12,9 +12,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		74C77B7D2DF3331C00976C90 /* ChemistryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChemistryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChemistryAppApp.swift; sourceTree = "<group>"; };
 		74C77B822DF3331C00976C90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		74CCAB672DF43177008DCBDA /* ChemistryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChemistryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -42,16 +42,8 @@
 				74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */,
 				74C77B822DF3331C00976C90 /* ContentView.swift */,
 				74C77B7F2DF3331C00976C90 /* ChemistryApp */,
-				74C77B7E2DF3331C00976C90 /* Products */,
+				74CCAB672DF43177008DCBDA /* ChemistryApp.app */,
 			);
-			sourceTree = "<group>";
-		};
-		74C77B7E2DF3331C00976C90 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				74C77B7D2DF3331C00976C90 /* ChemistryApp.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -76,7 +68,7 @@
 			packageProductDependencies = (
 			);
 			productName = ChemistryApp;
-			productReference = 74C77B7D2DF3331C00976C90 /* ChemistryApp.app */;
+			productReference = 74CCAB672DF43177008DCBDA /* ChemistryApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -104,7 +96,7 @@
 			mainGroup = 74C77B742DF3331C00976C90;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 74C77B7E2DF3331C00976C90 /* Products */;
+			productRefGroup = 74C77B742DF3331C00976C90;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
