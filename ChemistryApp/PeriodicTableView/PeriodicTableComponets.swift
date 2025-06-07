@@ -8,10 +8,10 @@
 import Foundation
 import SwiftUI
 
+let Data = Datas()
+
 class PeriodicTableComponets : ObservableObject {
-    
-    let Data = Datas()
-    
+
     func tableView() -> some View {
         
         VStack(spacing:5){

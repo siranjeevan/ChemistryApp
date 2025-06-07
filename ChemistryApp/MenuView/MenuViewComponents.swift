@@ -12,11 +12,6 @@ let screenHeigth: CGFloat = UIScreen.main.bounds.width // measures the height of
 var isIPhone: Bool {
     UIDevice.current.userInterfaceIdiom == .phone
 }
-let headerFont:String  = "Arial Rounded MT Bold"
-let titleFont:String = "Futura"
-let versionFont:String = "Futura"
-let atomSymbolFont = "Arial Rounded MT Bold"
-let aufbaPrincipleCardFont:String = "Arial Rounded MT Bold"
 
 
 class MenuViewComponents : ObservableObject {
@@ -39,7 +34,7 @@ class MenuViewComponents : ObservableObject {
 //
 //                            })
                             Text(self.menuViewsTitles[menuView])
-                                .font(.custom(titleFont, size: 18))
+                                .font(.custom(ChemistryAppConstants.titleFont, size: 18))
                         }
                     }
                 }

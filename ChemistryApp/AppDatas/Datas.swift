@@ -1363,6 +1363,10 @@ class Datas: ObservableObject {
         return elementsNumber[index]
     }
     
+    func getElementsAllNumber() -> [Int] {
+        return elementsNumber
+    }
+    
     //Get The Elements MassNo
     func getElementsMassNo(index : Int ) -> Double {
         return elementsMassNo[index]
@@ -1386,6 +1390,10 @@ class Datas: ObservableObject {
     //Get The Elements Neutrons
     func getElementsNeutrons(index : Int ) -> Int {
         return neutrons[index]
+    }
+    
+    func getElementsAllneturons() -> [Int] {
+        return neutrons
     }
     
     //Get The Elements Group
@@ -1429,8 +1437,8 @@ class Datas: ObservableObject {
     }
     
     //Get The Elements ElementsUsers
-    func getElementsElementsUsers(index : Int ) -> [String] {
-        return elementUses[index]
+    func getElementsElementsUsers(index1 : Int , index2 : Int  ) -> String {
+        return elementUses[index1][index2]
     }
 }
 
