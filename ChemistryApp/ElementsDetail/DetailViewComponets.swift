@@ -60,7 +60,7 @@ class elementsDetailViewComponents: ObservableObject {
                         self.scale = min(newScale, 3) // Limit the scale to a maximum of 3
                     }
                     .onEnded { _ in
-                        // Store the last scale value for future gestures and reset to 1 if above 3
+                        // Store the last scale value for future gestures and reset to 1 if above 3k
                         if self.scale >= 3 {
                             withAnimation {
                                 self.scale = 1

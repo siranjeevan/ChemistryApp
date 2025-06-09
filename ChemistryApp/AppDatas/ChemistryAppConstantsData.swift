@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChemistryAppConstants {
+class ChemistryAppConstants {
     static let updatePicture = "UpdatePic"
     static let noNetworkImage = "noNetwork"
     static let contactUs  = "contactUs"
