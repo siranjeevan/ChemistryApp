@@ -10,9 +10,10 @@ import SwiftUI
 
 //ChemistryAppConstants
 class elementsDetailViewComponents: ObservableObject {
+    
     @Environment(\.dismiss) var dismiss
-    private var scale: CGFloat = 1.0
-    @Published var isBouncing: Bool = false
+    @Published private var scale: CGFloat = 1.0
+//    @Published var isBouncing: Bool = false
     
     func renderElementCard(selectedElement:Int)->some View{
         
@@ -200,7 +201,6 @@ class elementsDetailViewComponents: ObservableObject {
     
     
     func renderValanceElectron(selectedElement:Int)->some View{
-       
         VStack(spacing:15){
             Text("Valance Electron")
                 .font(.custom(ChemistryAppConstants.titleFont, size: 20))
@@ -221,6 +221,9 @@ class elementsDetailViewComponents: ObservableObject {
 //                ClockWiseAtomShell(numberOfBalls: valanceShellElectrons[selectedElement], radius: 50, color: .black)
                 
             }
+//            BouncingButton(buttonContent: "Electronic Configuration", selectedElement: selectedElement )
+//            BouncingButton(buttonContent: "Electronic Configuration", selectedElement: selectedElement )
+            
 //            BouncingButton(buttonContent: "Electronic Configuration", selectedElement: selectedElement, destination: ElectronicConfiguration(selectedElement: selectedElement))
 //            BouncingButton(buttonContent: "Aufba Principle", selectedElement: selectedElement, destination: AufbaIntegerationView(selectedElement: selectedElement))
             
@@ -228,7 +231,7 @@ class elementsDetailViewComponents: ObservableObject {
         .padding()
     }
     
-    func BouncingButton(buttonContent : String, selectedElement:Int ) -> some View {
+    func BouncingButton(buttonContent : String, selectedElement:Int , isBouncing : Binding<Bool>) -> some View {
         NavigationLink(destination: j()) {
             Text(buttonContent)
                 .padding()
@@ -237,12 +240,12 @@ class elementsDetailViewComponents: ObservableObject {
                 .foregroundColor(ChemistryAppConstants.contentFontColor) // Replace with your actual color
                 .background(Data.getElementsColor(index: selectedElement)) // Replace with your actual color array
                 .cornerRadius(8)
-                .scaleEffect(isBouncing ? 1.05 : 1.0) // Scale effect for bouncing
-                .shadow(color: Data.getElementsColor(index: selectedElement) , radius: isBouncing ? 5 : 0)
+                .scaleEffect(isBouncing.wrappedValue ? 1.05 : 1.0) // Scale effect for bouncing
+                .shadow(color: Data.getElementsColor(index: selectedElement) , radius: isBouncing.wrappedValue ? 5 : 0)
                 .onAppear {
                     // Start the bouncing animation
                     withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                        self.isBouncing.toggle()
+                        isBouncing.wrappedValue.toggle()
                     }
                 }
         }
@@ -250,12 +253,19 @@ class elementsDetailViewComponents: ObservableObject {
     
 }
 
-struct y : View {
-   @StateObject var element = elementsDetailViewComponents()
+struct y: View {
+    @StateObject var detailComponents = elementsDetailViewComponents()
+    @State var isBouncing1 : Bool = false
+    @State var isBouncing2 : Bool = false
+    
     var body: some View {
-        element.BouncingButton(buttonContent: "Jee", selectedElement: 3)
+        VStack {
+            detailComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: 3, isBouncing: $isBouncing1)
+            detailComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: 3, isBouncing: $isBouncing2)
+        }
     }
 }
+
 
 #Preview {
     y()

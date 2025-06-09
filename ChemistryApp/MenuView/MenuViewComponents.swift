@@ -13,7 +13,6 @@ var isIPhone: Bool {
     UIDevice.current.userInterfaceIdiom == .phone
 }
 
-
 class MenuViewComponents : ObservableObject {
     
     private let menuViewsTitles: [String] = ["Home", "About Us" , "Contact Us","Privacy Policy"]

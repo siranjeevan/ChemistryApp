@@ -18,7 +18,10 @@ class PeriodicTableComponets : ObservableObject {
             //row 1
             HStack(spacing:5){
                 NavigationLink(destination: {
-//                    DetailView(selectedElement: 0)
+                    ElementsDetailView(selectedElement: 0)
+                        .onAppear(){
+                        }
+                    
                 }, label: {
                     elementCard(index: 0)
                 })
@@ -30,7 +33,7 @@ class PeriodicTableComponets : ObservableObject {
                 
                 
                 NavigationLink(destination:{
-//                    DetailView(selectedElement: 1)
+                    ElementsDetailView(selectedElement: 1)
                 }, label: {
                     self.elementCard(index: 1)
                 })
@@ -40,7 +43,7 @@ class PeriodicTableComponets : ObservableObject {
             HStack(spacing:5){
                 ForEach(2..<4){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -52,7 +55,7 @@ class PeriodicTableComponets : ObservableObject {
                 
                 ForEach(4..<10){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -62,7 +65,7 @@ class PeriodicTableComponets : ObservableObject {
             HStack(spacing:5){
                 ForEach(10..<12){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -73,7 +76,7 @@ class PeriodicTableComponets : ObservableObject {
                 }
                 ForEach(12..<18){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -83,7 +86,7 @@ class PeriodicTableComponets : ObservableObject {
             HStack(spacing:5){
                 ForEach(18..<36){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -93,7 +96,7 @@ class PeriodicTableComponets : ObservableObject {
             HStack(spacing:5){
                 ForEach(36..<54){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -103,7 +106,7 @@ class PeriodicTableComponets : ObservableObject {
             HStack(spacing:5){
                 ForEach(54..<56){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -111,7 +114,7 @@ class PeriodicTableComponets : ObservableObject {
                 staticElementCard(text: "57-71")
                 ForEach(71..<86){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -121,7 +124,7 @@ class PeriodicTableComponets : ObservableObject {
             HStack(spacing:5){
                 ForEach(86..<88){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -138,7 +141,7 @@ class PeriodicTableComponets : ObservableObject {
                 }
                 ForEach(56..<71){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                     })
@@ -151,7 +154,7 @@ class PeriodicTableComponets : ObservableObject {
                 }
                 ForEach(88..<103){i in
                     NavigationLink(destination: {
-//                        DetailView(selectedElement: i)
+                        ElementsDetailView(selectedElement: i)
                     }, label: {
                         self.elementCard(index: i)
                         
@@ -159,6 +162,7 @@ class PeriodicTableComponets : ObservableObject {
                 }
             }
         }
+        .scaleEffect(0.9)
     }
     
     
@@ -218,9 +222,22 @@ class PeriodicTableComponets : ObservableObject {
 }
 
 struct j : View {
-    let periodicTableComponets = PeriodicTableComponets()
+    @StateObject var periodicTableComponets = PeriodicTableComponets()
+    @StateObject var Menu = MenuViewComponents()
     var body: some View {
-        periodicTableComponets.tableView()
+        NavigationStack{
+            ZStack{
+                ZStack {
+                    components.Header(content: "", selectedElement: 3)
+                    periodicTableComponets.tableView()
+                }
+                .blur(radius:Menu.isDrawerOpen ? 3:0)
+                
+                Menu.Drawer()
+                Menu.drawerButton()
+            }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -8,12 +8,16 @@
 import SwiftUI
 
 let components =  Components()
-let DetailViewComponents = elementsDetailViewComponents()
+
 
 //ChemistryAppConstants
 struct ElementsDetailView: View {
-    @State var isDrawerOpen : Bool = false
     @State var selectedElement:Int
+    @StateObject var DetailViewComponents = elementsDetailViewComponents()
+    @StateObject var Menu = MenuViewComponents()
+    @State var isBouncing1 : Bool = false
+    @State var isBouncing2 : Bool = false
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack{
             ZStack{
@@ -39,23 +43,36 @@ struct ElementsDetailView: View {
                     }
                     .offset(y:screenHeigth * 0.012)
                     
-                    
                     VStack{
                         DetailViewComponents.elementDetailTableView(selectedElement: selectedElement)
                         DetailViewComponents.applicationOfAtom(selectElement: selectedElement)
                     }
-                    DetailViewComponents.renderValanceElectron(selectedElement: selectedElement)
                     
+                    VStack {
+                        DetailViewComponents.renderValanceElectron(selectedElement: selectedElement)
+                        DetailViewComponents.BouncingButton(buttonContent: "Electronic Configuration", selectedElement: selectedElement, isBouncing: $isBouncing1)
+                        DetailViewComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: selectedElement, isBouncing: $isBouncing2)
+                        
+                    }
                 }
-                .offset(y:screenHeigth * 0.03)
-                .scaleEffect(isIPhone ? 0.85:1.1)
+                .offset(y : screenHeigth * 0.03)
+                .scaleEffect(isIPhone ? 0.85 : 1.1)
                 .foregroundColor(ChemistryAppConstants.contentFontColor)
             }
-            .blur(radius:isDrawerOpen ? 3:0)
+            .blur(radius: Menu.isDrawerOpen ? 3:0)
+            .overlay {
+                Button(action: {dismiss()}, label: {components.BouncingBackButton(selectedElement: selectedElement)})
+                    .scaleEffect(isIPhone ? 0.6:1)
+                    .offset(x:isIPhone ? -1 * screenWidth * 0.4:-1 * screenWidth * 0.375,y:isIPhone ? -1 * screenHeigth * 0.17:-1 * screenHeigth * 0.3)
+                
+                Menu.Drawer()
+                Menu.drawerButton()
+            }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    ElementsDetailView(selectedElement: 3)
+    ElementsDetailView(selectedElement: 102)
 }
