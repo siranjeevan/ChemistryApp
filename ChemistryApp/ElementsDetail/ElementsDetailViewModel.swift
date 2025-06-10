@@ -1,23 +1,21 @@
 //
-//  ElementsDetailView.swift
+//  ElementsDetailViewModel.swift
 //  ChemistryApp
 //
-//  Created by Jeevith on 6/8/25.
+//  Created by Jeevith  on 10/06/25.
 //
 
+import Foundation
 import SwiftUI
 
-let components =  Components()
-
-//ChemistryAppConstants
-struct ElementsDetailView: View {
-    @State var selectedElement:Int
+class ElementsDetailViewModel : ObservableObject {
     @StateObject var DetailViewComponents = ElementsDetailViewComponents()
     @StateObject var Menu = MenuViewComponents()
+    @Environment(\.dismiss) var dismiss
     @State var isBouncing1 : Bool = false
     @State var isBouncing2 : Bool = false
-    @Environment(\.dismiss) var dismiss
-    var body: some View {
+    
+    func DetailViewModel(selectedElement : Int) -> some View {
         NavigationStack{
             ZStack{
                 components.AppBackground()
@@ -28,8 +26,8 @@ struct ElementsDetailView: View {
                 HStack{
                     VStack{
                         ZStack{
-                            RoundedRectangle(cornerRadius: 10) // Step 1: Create Rounded Rectangle
-                                .stroke(Data.getElementsColor(index: selectedElement) ,style:     StrokeStyle(lineWidth: 2)) // Fill color for the rounded rectangle
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Data.getElementsColor(index: selectedElement) ,style:     StrokeStyle(lineWidth: 2))
                                 .frame(width: screenWidth * 0.3,height: screenWidth * 0.2)
                             
                             HStack{
@@ -41,7 +39,6 @@ struct ElementsDetailView: View {
                         DetailViewComponents.renderBasicParticlesOfAnAtom(selectedElement: selectedElement)
                     }
                     .offset(y:screenHeigth * 0.012)
-                    
                     VStack{
                         DetailViewComponents.elementDetailTableView(selectedElement: selectedElement)
                         DetailViewComponents.applicationOfAtom(selectElement: selectedElement)
@@ -59,7 +56,7 @@ struct ElementsDetailView: View {
             }
             .blur(radius: Menu.isDrawerOpen ? 3:0)
             .overlay {
-                Button(action: {dismiss()}, label: {components.BouncingBackButton(selectedElement: selectedElement)})
+                Button(action: {self.dismiss()}, label: {components.BouncingBackButton(selectedElement: selectedElement)})
                     .scaleEffect(isIPhone ? 0.6:1)
                     .offset(x:isIPhone ? -1 * screenWidth * 0.4:-1 * screenWidth * 0.375,y:isIPhone ? -1 * screenHeigth * 0.17:-1 * screenHeigth * 0.3)
                 
@@ -71,6 +68,3 @@ struct ElementsDetailView: View {
     }
 }
 
-#Preview {
-    ElementsDetailView(selectedElement: 102)
-}

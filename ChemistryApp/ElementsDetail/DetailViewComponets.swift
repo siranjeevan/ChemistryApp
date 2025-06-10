@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 //ChemistryAppConstants
-class elementsDetailViewComponents: ObservableObject {
+class ElementsDetailViewComponents: ObservableObject {
     
     @Environment(\.dismiss) var dismiss
     @Published private var scale: CGFloat = 1.0
@@ -71,8 +71,8 @@ class elementsDetailViewComponents: ObservableObject {
     }
     
     func renderBasicParticlesOfAnAtom(selectedElement:Int) -> some View{
+        
         ZStack{
-            
             RoundedRectangle(cornerRadius: 10)
                 .fill(Data.getElementsColor(index: selectedElement))
                 .frame(width: screenWidth * 0.3,height: screenWidth * 0.2)
@@ -232,7 +232,7 @@ class elementsDetailViewComponents: ObservableObject {
     }
     
     func BouncingButton(buttonContent : String, selectedElement:Int , isBouncing : Binding<Bool>) -> some View {
-        NavigationLink(destination: j()) {
+        NavigationLink(destination: PeriodicTableScreen()) {
             Text(buttonContent)
                 .padding()
                 .font(.custom("YourCustomFontName", size: 14)) // Replace with your font name
@@ -254,7 +254,7 @@ class elementsDetailViewComponents: ObservableObject {
 }
 
 struct y: View {
-    @StateObject var detailComponents = elementsDetailViewComponents()
+    @StateObject var detailComponents = ElementsDetailViewComponents()
     @State var isBouncing1 : Bool = false
     @State var isBouncing2 : Bool = false
     

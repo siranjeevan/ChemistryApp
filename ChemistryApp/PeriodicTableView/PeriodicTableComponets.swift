@@ -10,175 +10,21 @@ import SwiftUI
 
 let Data = Datas()
 
-class PeriodicTableComponets : ObservableObject {
-
-    func tableView() -> some View {
-        
-        VStack(spacing:5){
-            //row 1
-            HStack(spacing:5){
-                NavigationLink(destination: {
-                    ElementsDetailView(selectedElement: 0)
-                        .onAppear(){
-                        }
-                    
-                }, label: {
-                    elementCard(index: 0)
-                })
-                
-                // elements space for HStack
-                ForEach(0..<16){_ in
-                    self.transparentElementCard()
-                }
-                
-                
-                NavigationLink(destination:{
-                    ElementsDetailView(selectedElement: 1)
-                }, label: {
-                    self.elementCard(index: 1)
-                })
-                
-            }
-            //row 2
-            HStack(spacing:5){
-                ForEach(2..<4){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-                //empty boxes
-                ForEach(0..<10){_ in
-                    self.transparentElementCard()
-                }
-                
-                ForEach(4..<10){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-            }
-            //row 3
-            HStack(spacing:5){
-                ForEach(10..<12){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-                //empty boxes
-                ForEach(0..<10){_ in
-                    self.transparentElementCard()
-                }
-                ForEach(12..<18){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-            }
-            //row 4
-            HStack(spacing:5){
-                ForEach(18..<36){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-            }
-            //row 5
-            HStack(spacing:5){
-                ForEach(36..<54){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-            }
-            //row 6
-            HStack(spacing:5){
-                ForEach(54..<56){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-                staticElementCard(text: "57-71")
-                ForEach(71..<86){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-            }
-            //row 7
-            HStack(spacing:5){
-                ForEach(86..<88){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-                staticElementCard(text: "89-103")
-                ForEach(0..<15){_ in
-                    self.transparentElementCard()
-                }
-            }
-            //row 8
-            HStack(spacing:5){
-                ForEach(0..<3){_ in
-                    self.transparentElementCard()
-                }
-                ForEach(56..<71){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                    })
-                }
-            }
-            //row 8
-            HStack(spacing:5){
-                ForEach(0..<3){_ in
-                    self.transparentElementCard()
-                }
-                ForEach(88..<103){i in
-                    NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
-                    }, label: {
-                        self.elementCard(index: i)
-                        
-                    })
-                }
-            }
-        }
-        .scaleEffect(0.9)
-    }
-    
+class PeriodicTableComponets : ObservableObject { 
     
     func elementCard(index:Int)->some View{
         ZStack{
             RoundedRectangle(cornerRadius: 5)
                 .fill(Data.getElementsColor(index: index))
-//                .fill(Datas.elementCardColor[index])
                 .frame(width:isIPhone ? screenWidth * 0.045:screenWidth * 0.055,height:isIPhone ? screenWidth * 0.045:screenWidth * 0.055)
-//            Text(elementsSymbols[index])
+            
             Text(Data.getElementsSymbols(index: index))
                 .font(.system(size:isIPhone ? 14:18))
                 .foregroundColor(.white).bold()
 
         }
-        .overlay(alignment:.topLeading){
+        .overlay(alignment:.topLeading)
+        {
             Text("\(Data.getElementsNumber(index: index))")
                 .font(.system(size:isIPhone ? 7:10))
                 .padding([.leading,.top],3)
@@ -218,29 +64,4 @@ class PeriodicTableComponets : ObservableObject {
                 .font(.system(size:isIPhone ? 10:14))
         }
     }
-    
-}
-
-struct j : View {
-    @StateObject var periodicTableComponets = PeriodicTableComponets()
-    @StateObject var Menu = MenuViewComponents()
-    var body: some View {
-        NavigationStack{
-            ZStack{
-                ZStack {
-                    components.Header(content: "", selectedElement: 3)
-                    periodicTableComponets.tableView()
-                }
-                .blur(radius:Menu.isDrawerOpen ? 3:0)
-                
-                Menu.Drawer()
-                Menu.drawerButton()
-            }
-        }
-        .navigationBarBackButtonHidden(true)
-    }
-}
-
-#Preview {
-    j()
 }
