@@ -52,7 +52,6 @@ struct ElementsDetailView: View {
                         DetailViewComponents.renderValanceElectron(selectedElement: selectedElement)
                         DetailViewComponents.BouncingButton(buttonContent: "Electronic Configuration", selectedElement: selectedElement, isBouncing: $isBouncing1)
                         DetailViewComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: selectedElement, isBouncing: $isBouncing2)
-                        
                     }
                 }
                 .offset(y : screenHeigth * 0.03)
