@@ -9,9 +9,16 @@ import Foundation
 import SwiftUI
 
 class Components : ObservableObject {
-   @Published var isBouncing: Bool = false
+//   @Published var isBouncing: Bool = false
     
-    func BouncingBackButton(selectedElement: Int) -> some View {
+    func viewBackgroundColor() -> some View {
+        @Environment(\.colorScheme) var colorScheme
+        
+        return Color.darkGrey.opacity(colorScheme == .light ? 0.5 : 0)
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    func BouncingBackButton(selectedElement: Int , isBouncing: Binding<Bool>) -> some View {
         Text("Back")
             .padding()
             .font(.body)
@@ -19,12 +26,12 @@ class Components : ObservableObject {
             .foregroundColor(ChemistryAppConstants.contentFontColor) // Replace with your actual color
             .background(Data.getElementsColor(index: selectedElement)) // Replace with your actual color array
             .cornerRadius(20)
-            .scaleEffect(isBouncing ? 1.1 : 1.0) // Scale effect for bouncing
-            .shadow(color:Data.getElementsColor(index: selectedElement) ,radius: isBouncing ? 10 : 0)
+            .scaleEffect(isBouncing.wrappedValue ? 1.1 : 1.0) // Scale effect for bouncing
+            .shadow(color:Data.getElementsColor(index: selectedElement) ,radius: isBouncing.wrappedValue ? 10 : 0)
             .onAppear {
                 // Start the bouncing animation
                 withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                    self.isBouncing.toggle()
+                    isBouncing.wrappedValue.toggle()
                 }
             }
     }
@@ -80,9 +87,10 @@ class Components : ObservableObject {
 
 struct a : View {
    @StateObject var components = Components()
+    @State var isBouncing = false
     var body: some View {
         components.Header(content: "", selectedElement: 3)
-        
+        components.BouncingBackButton(selectedElement: 5, isBouncing: $isBouncing)
     }
 }
 

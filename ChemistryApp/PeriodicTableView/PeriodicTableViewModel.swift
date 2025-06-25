@@ -17,7 +17,7 @@ class PeriodicTableViewModel : ObservableObject {
             //row 1
             HStack(spacing:5){
                 NavigationLink(destination: {
-                    ElementsDetailView(selectedElement: 0)
+                     ElementDetailScreen(selectedElement: 0)
                     
                 }, label: {
                     periodicTableComponets.elementCard(index: 0)
@@ -30,7 +30,7 @@ class PeriodicTableViewModel : ObservableObject {
                 
                 
                 NavigationLink(destination:{
-                    ElementsDetailView(selectedElement: 1)
+                     ElementDetailScreen(selectedElement: 1)
                 }, label: {
                     periodicTableComponets.elementCard(index: 1)
                 })
@@ -40,7 +40,7 @@ class PeriodicTableViewModel : ObservableObject {
             HStack(spacing:5){
                 ForEach(2..<4){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -52,7 +52,7 @@ class PeriodicTableViewModel : ObservableObject {
                 
                 ForEach(4..<10){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -62,7 +62,7 @@ class PeriodicTableViewModel : ObservableObject {
             HStack(spacing:5){
                 ForEach(10..<12){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -73,7 +73,7 @@ class PeriodicTableViewModel : ObservableObject {
                 }
                 ForEach(12..<18){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -83,7 +83,7 @@ class PeriodicTableViewModel : ObservableObject {
             HStack(spacing:5){
                 ForEach(18..<36){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -93,7 +93,7 @@ class PeriodicTableViewModel : ObservableObject {
             HStack(spacing:5){
                 ForEach(36..<54){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -103,7 +103,7 @@ class PeriodicTableViewModel : ObservableObject {
             HStack(spacing:5){
                 ForEach(54..<56){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -111,7 +111,7 @@ class PeriodicTableViewModel : ObservableObject {
                 periodicTableComponets.staticElementCard(text: "57-71")
                 ForEach(71..<86){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -121,7 +121,7 @@ class PeriodicTableViewModel : ObservableObject {
             HStack(spacing:5){
                 ForEach(86..<88){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -138,7 +138,7 @@ class PeriodicTableViewModel : ObservableObject {
                 }
                 ForEach(56..<71){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                     })
@@ -151,7 +151,7 @@ class PeriodicTableViewModel : ObservableObject {
                 }
                 ForEach(88..<103){i in
                     NavigationLink(destination: {
-                        ElementsDetailView(selectedElement: i)
+                         ElementDetailScreen(selectedElement: i)
                     }, label: {
                         self.periodicTableComponets.elementCard(index: i)
                         

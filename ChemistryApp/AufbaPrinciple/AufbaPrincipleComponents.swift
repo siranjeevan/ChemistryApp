@@ -11,6 +11,13 @@ import SwiftUI
 class AufbaPrincipleComponents: ObservableObject {
     
     @Published var incrementer: Int = 0
+    @Published var spacing: CGFloat = 5
+//    @Binding var selectedElement: Int
+
+    @Published var isAppearFlags = Array(repeating: false, count: 19)
+    @Published var isBumbingFlags = Array(repeating: false, count: 19)
+    
+    @Published private var timer: Timer? // Store reference to timer
     
     func ElectronicScoreboardCard(index: Int, selectedElement: Int) -> some View {
         HStack {
@@ -67,7 +74,7 @@ class AufbaPrincipleComponents: ObservableObject {
                     .padding(.top,50)
                     .scaleEffect(0.82)
                 }
-        } .offset(x: -1 * screenWidth * 0.28, y: screenWidth * 0.025)
+        }
     }
     
     func incrementerSideBar(selectedElement: Int)->some View{
@@ -93,10 +100,9 @@ class AufbaPrincipleComponents: ObservableObject {
 //            print("periodic_Table_view_appeared")
             self.animateIncrementer(selectedElement: selectedElement)
         }
-        .offset(x:screenWidth * 0.25)
     }
     
-    func animateIncrementer(selectedElement: Int){
+    private func animateIncrementer(selectedElement: Int){
         for index in 0..<Data.getElementConfigurationCount(index1: selectedElement){
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 1) {
                 withAnimation(.easeInOut){
@@ -130,49 +136,83 @@ class AufbaPrincipleComponents: ObservableObject {
                 if index == 0 {
                     DottedArrow()
                 } else {
-//                    DottedLine()
+                    DottedLine()
                 }
             }
             .rotationEffect(Angle(degrees: 135))
         }
     }
-}
-struct ArrowShape: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        // Arrow shaft
-        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
-        
-        // Arrow head
-        path.move(to: CGPoint(x: rect.maxX, y: rect.midY))
-        path.addLine(to: CGPoint(x: rect.maxX - 20, y: rect.midY - 10))
-        path.move(to: CGPoint(x: rect.maxX, y: rect.midY))
-        path.addLine(to: CGPoint(x: rect.maxX - 20, y: rect.midY + 10))
-        
-        return path
+    
+    func DottedLine() -> some View {
+        return AnyView(
+            Path { path in
+                path.move(to: CGPoint(x: 0, y: 10))  // y: 10 to align with arrow shaft
+                path.addLine(to: CGPoint(x: 70, y: 10))
+            }
+            .stroke(style: StrokeStyle(lineWidth: 2, dash: [3]))
+            .foregroundColor(.gray)
+            .frame(width: 70, height: 20)  // match arrow frame
+        )
     }
-}
+    
+    func DottedArrow() -> some View {
+            return AnyView(
+                Path { path in
+                    // Arrow shaft
+                    path.move(to: CGPoint(x: 0, y: 10))
+                    path.addLine(to: CGPoint(x: 70, y: 10))
+                    
+                    // Arrow head
+                    path.move(to: CGPoint(x: 70, y: 10))
+                    path.addLine(to: CGPoint(x: 50, y: 0))
+                    path.move(to: CGPoint(x: 70, y: 10))
+                    path.addLine(to: CGPoint(x: 50, y: 20))
+                }
+                .stroke(style: StrokeStyle(lineWidth: 2, dash: [3]))
+                .foregroundColor(.gray)
+                .frame(width: 70, height: 20, alignment: .bottomTrailing)
+            )
+    }
+    func removeZeros(selectedElement: Int) -> [Int] {
+        let processArray = Data.getAllElectronicConfiguration(index: selectedElement)
+        guard let lastNonZero = processArray.lastIndex(where: { $0 != 0 }) else {
+            return []
+        }
+        return Array(processArray[...lastNonZero])
+    }
+    
+    func animateElementCardWithTimer(selectedElement: Int) {
+        let APRFilledSubShells = [2, 2, 6, 2, 6, 10, 2, 6, 10, 14, 2, 6, 10, 14, 2, 6, 10, 2, 6]
+        let elementConfig = Data.getAllElectronicConfiguration(index: selectedElement)
+        let count = removeZeros(selectedElement: selectedElement).count
+        
+        var index = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
+            if index >= ChemistryAppConstants.APR.count || index >= count {
+                timer.invalidate()
+                self.timer = nil
+                return
+            }
+            
+            let i = ChemistryAppConstants.APR[index]
+            if elementConfig[i] != 0 {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    self.isAppearFlags[i] = true
+                }
 
-struct DottedArrow:View {
-    var body: some View {
-        ArrowShape()
-        .stroke(style: StrokeStyle(lineWidth: 2, dash: [3]))
-        .foregroundColor(.gray)
-        .frame(width: 70, height: 1,alignment:.bottomTrailing)
+                if APRFilledSubShells[i] != elementConfig[i] {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        self.isBumbingFlags[i] = true
+                    }
+                }
+            }
+            
+            index += 1
+        }
     }
-}
-struct b : View {
-    @StateObject var aufbaPrincipleComponents = AufbaPrincipleComponents()
-    @State private var isAppearFlags = Array(repeating: false, count: 19)
-    @State private var isBumbingFlags = Array(repeating: false, count: 19)
-    var body: some View {
-        aufbaPrincipleComponents.AufbaElementCard(content: ChemistryAppConstants.content[3], color: ChemistryAppConstants.spdfColors[1], isColor: isAppearFlags[0], isBumping: isBumbingFlags[0], index: 0)
-        aufbaPrincipleComponents.AufbaElementCard(content: ChemistryAppConstants.content[3], color: ChemistryAppConstants.spdfColors[1], isColor: isAppearFlags[0], isBumping: isBumbingFlags[0], index: 0)
-    }
+
 }
 
 #Preview {
-    b()
+//    AufbauView()
 }

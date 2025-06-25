@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BC57EF02E0816A3007E2D65 /* ElementsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC57ED82E0816A3007E2D65 /* ElementsDetailView.swift */; };
 		74C77B812DF3331C00976C90 /* ChemistryAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */; };
 		74C77B832DF3331C00976C90 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C77B822DF3331C00976C90 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4BC57ED82E0816A3007E2D65 /* ElementsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsDetailView.swift; sourceTree = "<group>"; };
 		74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChemistryAppApp.swift; sourceTree = "<group>"; };
 		74C77B822DF3331C00976C90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		74CCAB672DF43177008DCBDA /* ChemistryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChemistryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +43,7 @@
 			children = (
 				74C77B802DF3331C00976C90 /* ChemistryAppApp.swift */,
 				74C77B822DF3331C00976C90 /* ContentView.swift */,
+				4BC57ED82E0816A3007E2D65 /* ElementsDetailView.swift */,
 				74C77B7F2DF3331C00976C90 /* ChemistryApp */,
 				74CCAB672DF43177008DCBDA /* ChemistryApp.app */,
 			);
@@ -120,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC57EF02E0816A3007E2D65 /* ElementsDetailView.swift in Sources */,
 				74C77B832DF3331C00976C90 /* ContentView.swift in Sources */,
 				74C77B812DF3331C00976C90 /* ChemistryAppApp.swift in Sources */,
 			);

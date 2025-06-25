@@ -20,7 +20,7 @@ struct PeriodicTableScreen: View {
                     periodicTableComponets.tableView()
                 }
                 .blur(radius: Menu.isDrawerOpen ? 3 : 0)
-
+                
                 Menu.Drawer()
                 Menu.drawerButton()
             }

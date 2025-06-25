@@ -1383,6 +1383,10 @@ class Datas: ObservableObject {
     }
     
     //Get The Elements Configuration
+    func getAllElectronicConfiguration(index : Int) -> [Int] {
+        return electronicConfiguration[index]
+    }
+    
     func getElementsConfiguration(index1 : Int , index2 : Int ) -> Int {
         return electronicConfiguration[index1][index2]
     }
@@ -1390,6 +1394,7 @@ class Datas: ObservableObject {
     func getElementConfigurationCount(index1 : Int) -> Int {
         return electronicConfiguration[index1].count
     }
+    
     
     //Get The Elements Neutrons
     func getElementsNeutrons(index : Int ) -> Int {

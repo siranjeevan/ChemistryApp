@@ -16,6 +16,7 @@ struct ElementsDetailView: View {
     @StateObject var Menu = MenuViewComponents()
     @State var isBouncing1 : Bool = false
     @State var isBouncing2 : Bool = false
+    @State var isBouncing : Bool = false
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack{
@@ -48,9 +49,9 @@ struct ElementsDetailView: View {
                     }
                     
                     VStack {
-                        DetailViewComponents.renderValanceElectron(selectedElement: selectedElement)
-                        DetailViewComponents.BouncingButton(buttonContent: "Electronic Configuration", selectedElement: selectedElement, isBouncing: $isBouncing1)
-                        DetailViewComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: selectedElement, isBouncing: $isBouncing2)
+//                        DetailViewComponents.renderValanceElectron(selectedElement: selectedElement)
+//                        DetailViewComponents.BouncingButton(buttonContent: "Electronic Configuration", selectedElement: selectedElement, isBouncing: $isBouncing1)
+//                        DetailViewComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: selectedElement, isBouncing: $isBouncing2)
                     }
                 }
                 .offset(y : screenHeigth * 0.03)
@@ -59,7 +60,7 @@ struct ElementsDetailView: View {
             }
             .blur(radius: Menu.isDrawerOpen ? 3:0)
             .overlay {
-                Button(action: {dismiss()}, label: {components.BouncingBackButton(selectedElement: selectedElement)})
+                Button(action: {dismiss()}, label: {components.BouncingBackButton(selectedElement: selectedElement, isBouncing: $isBouncing)})
                     .scaleEffect(isIPhone ? 0.6:1)
                     .offset(x:isIPhone ? -1 * screenWidth * 0.4:-1 * screenWidth * 0.375,y:isIPhone ? -1 * screenHeigth * 0.17:-1 * screenHeigth * 0.3)
                 

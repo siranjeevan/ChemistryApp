@@ -10,8 +10,6 @@ import SwiftUI
 
 //ChemistryAppConstants
 class ElementsDetailViewComponents: ObservableObject {
-    
-    @Environment(\.dismiss) var dismiss
     @Published private var scale: CGFloat = 1.0
 //    @Published var isBouncing: Bool = false
     
@@ -231,38 +229,74 @@ class ElementsDetailViewComponents: ObservableObject {
         .padding()
     }
     
-    func BouncingButton(buttonContent : String, selectedElement:Int , isBouncing : Binding<Bool>) -> some View {
-        NavigationLink(destination: PeriodicTableScreen()) {
+    func BouncingButton<Destination: View>(
+        buttonContent: String,
+        selectedElement: Int,
+        isBouncing: Binding<Bool>,
+        destination: Destination
+    ) -> some View {
+        NavigationLink(destination: destination) {
             Text(buttonContent)
                 .padding()
-                .font(.custom("YourCustomFontName", size: 14)) // Replace with your font name
+                .font(.custom("YourCustomFontName", size: 14))
                 .frame(width: UIScreen.main.bounds.width * 0.15)
-                .foregroundColor(ChemistryAppConstants.contentFontColor) // Replace with your actual color
-                .background(Data.getElementsColor(index: selectedElement)) // Replace with your actual color array
+                .foregroundColor(ChemistryAppConstants.contentFontColor)
+                .background(Data.getElementsColor(index: selectedElement))
                 .cornerRadius(8)
-                .scaleEffect(isBouncing.wrappedValue ? 1.05 : 1.0) // Scale effect for bouncing
-                .shadow(color: Data.getElementsColor(index: selectedElement) , radius: isBouncing.wrappedValue ? 5 : 0)
-                .onAppear {
-                    // Start the bouncing animation
-                    withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                        isBouncing.wrappedValue.toggle()
-                    }
-                }
+                .scaleEffect(isBouncing.wrappedValue ? 1.05 : 1.0)
+                .shadow(color: Data.getElementsColor(index: selectedElement),
+                        radius: isBouncing.wrappedValue ? 5 : 0)
+                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isBouncing.wrappedValue)
+        }
+        .onAppear {
+            // Only toggle once
+            if !isBouncing.wrappedValue {
+                isBouncing.wrappedValue = true
+            }
         }
     }
+
+
+
+    @ViewBuilder
+    func renderNavigationButtons(selectedElement: Int, isBouncing: Binding<Bool>) -> some View {
+        VStack(spacing: isIPhone ? screenWidth * 0.01 : screenWidth * 0.025) {
+            
+            BouncingButton(
+                buttonContent: "Bohr Model",
+                selectedElement: selectedElement,
+                isBouncing: isBouncing,
+                destination: AufbaPrincipleScreen(selectedElement: selectedElement)
+            )
+            
+            BouncingButton(
+                buttonContent: "Aufbau Principle",
+                selectedElement: selectedElement,
+                isBouncing: isBouncing,
+                destination: AufbaPrincipleScreen(selectedElement: selectedElement)
+            )
+            
+            BouncingButton(
+                buttonContent: "Watch and Learn",
+                selectedElement: selectedElement,
+                isBouncing: isBouncing,
+                destination: AufbaPrincipleScreen(selectedElement: selectedElement)
+            )
+            
+            
+        }
+    }
+
+
     
 }
 
 struct y: View {
     @StateObject var detailComponents = ElementsDetailViewComponents()
-    @State var isBouncing1 : Bool = false
-    @State var isBouncing2 : Bool = false
-    
+    @State private var isBouncing = false
+
     var body: some View {
-        VStack {
-            detailComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: 3, isBouncing: $isBouncing1)
-            detailComponents.BouncingButton(buttonContent: "Aufba Principle", selectedElement: 3, isBouncing: $isBouncing2)
-        }
+        detailComponents.renderNavigationButtons(selectedElement: 102, isBouncing: $isBouncing)
     }
 }
 
