@@ -27,7 +27,7 @@ class ConfigurationComponets: ObservableObject {
             // index1 -> y offset
             // index2 -> arrow rotation
             // index3 -> text rotation
-            let _: [[Int]] = [
+            let _ : [[Int]] = [
                 [63, -12, -135, 120],
                 [39, 10, -165, 110],
                 [17, 20, -195, 90],
@@ -37,23 +37,23 @@ class ConfigurationComponets: ObservableObject {
                 [133, 60, 30, 50]
             ]
             
-//            ForEach(0..<getShellElectronData(selectedElement: selectedElement).count, id: \.self) { index in
-//                let electrons = getShellElectronData(selectedElement: selectedElement)[index]
-//                if electrons != 0 {
-//                    ZStack {
-//                        if index % 2 == 0 {
+            ForEach(0..<getShellElectronData(selectedElement: selectedElement).count, id: \.self) { index in
+                let electrons = self.getShellElectronData(selectedElement: selectedElement)[index]
+                if electrons != 0 {
+                    ZStack {
+                        if index % 2 == 0 {
 //                            ClockWiseAtomShell(
 //                                numberOfBalls: electrons,
 //                                radius: 20 + CGFloat(index * 15),
 //                                color: shellColors[index]
 //                            )
-//                        } else {
+                        } else {
 //                            AntiClockWiseAtomShell(
 //                                numberOfBalls: electrons,
 //                                radius: 20 + CGFloat(index * 15),
 //                                color: shellColors[index]
 //                            )
-//                        }
+                        }
 //                        
 //                        AnimatedArrow(
 //                            color: shellColors[index],
@@ -66,12 +66,25 @@ class ConfigurationComponets: ObservableObject {
 //                            x: CGFloat(shellProperties[index][0]),
 //                            y: CGFloat(shellProperties[index][1])
 //                        )
-//                    }
-//                }
-//            }
+                    }
+                }
+            }
         }
     }
     
+    
+    
+    func getShellElectronData(selectedElement:Int)->[Int]{
+        return [
+            Data.getElementsConfiguration(index1: selectedElement, index2: 0),
+            Data.getElementsConfiguration(index1: selectedElement, index2: 1)+Data.getElementsConfiguration(index1: selectedElement, index2: 2),
+            Data.getElementsConfiguration(index1: selectedElement, index2: 3)+Data.getElementsConfiguration(index1: selectedElement, index2: 4)+Data.getElementsConfiguration(index1: selectedElement, index2: 5),
+            Data.getElementsConfiguration(index1: selectedElement, index2: 6)+Data.getElementsConfiguration(index1: selectedElement, index2: 7)+Data.getElementsConfiguration(index1: selectedElement, index2: 8)+Data.getElementsConfiguration(index1: selectedElement, index2: 9),
+            Data.getElementsConfiguration(index1: selectedElement, index2: 10)+Data.getElementsConfiguration(index1: selectedElement, index2: 11)+Data.getElementsConfiguration(index1: selectedElement, index2: 12)+Data.getElementsConfiguration(index1: selectedElement, index2: 13),
+            Data.getElementsConfiguration(index1: selectedElement, index2: 14)+Data.getElementsConfiguration(index1: selectedElement, index2: 15)+Data.getElementsConfiguration(index1: selectedElement, index2: 16),
+            Data.getElementsConfiguration(index1: selectedElement, index2: 17)+Data.getElementsConfiguration(index1: selectedElement, index2: 18)
+            ]
+    }
 }
 
 struct c : View {
