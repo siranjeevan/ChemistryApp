@@ -1,32 +1,22 @@
-//
-//  ConfigurationAnimationComponets.swift
-//  ChemistryApp
-//
-//  Created by Jeevith on 7/1/25.
-//
-
 import SwiftUI
 import Foundation
 
 class ConfigurationAnimationComponets: ObservableObject {
-    
     @Published var isHibirnateShell = false
-    @Published var angle: CGFloat = 0
     @Published var timer: Timer? = nil
-    @Published var dummyTrigger = false // 👈 key fix to force re-render
 
-    func ClockWiseAtomShell(numberOfBalls: Int , radius: CGFloat , color:Color) -> some View {
+    func ClockWiseAtomShell(numberOfBalls: Int, radius: CGFloat, color: Color, angle: Binding<CGFloat>) -> some View {
         ZStack {
             Circle()
                 .stroke(isHibirnateShell ? .gray : color, lineWidth: 2)
                 .frame(width: radius * 2)
                 .shadow(color: isHibirnateShell ? .clear : color, radius: 10)
-            
+
             ForEach(0..<numberOfBalls, id: \.self) { [self] index in
                 let angleOffset = 2 * .pi * CGFloat(index) / CGFloat(numberOfBalls)
-                let xPosition = radius * cos(self.angle + angleOffset)
-                let yPosition = radius * sin(self.angle + angleOffset)
-                
+                let xPosition = radius * cos(angle.wrappedValue + angleOffset)
+                let yPosition = radius * sin(angle.wrappedValue + angleOffset)
+
                 Circle()
                     .frame(width: 7)
                     .offset(x: xPosition, y: yPosition)
@@ -35,7 +25,7 @@ class ConfigurationAnimationComponets: ObservableObject {
         }
         .onAppear {
             if !self.isHibirnateShell {
-                self.ClockWiseAtomShellAnimationStart()
+                self.ClockWiseAtomShellAnimationStart(angle: angle)
             }
         }
         .onDisappear {
@@ -43,11 +33,10 @@ class ConfigurationAnimationComponets: ObservableObject {
         }
     }
 
-    private func ClockWiseAtomShellAnimationStart() {
-        let newTimer = Timer(timeInterval: 1 / 60, repeats: true) { _ in
+    private func ClockWiseAtomShellAnimationStart(angle: Binding<CGFloat>) {
+        let newTimer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true) { _ in
             DispatchQueue.main.async {
-                self.angle += 0.01
-                self.dummyTrigger.toggle() // 👈 force SwiftUI to observe a change
+                angle.wrappedValue += 0.01
             }
         }
         RunLoop.current.add(newTimer, forMode: .common)
@@ -55,11 +44,12 @@ class ConfigurationAnimationComponets: ObservableObject {
     }
 }
 
-struct k : View {
+struct k: View {
     @StateObject var s = ConfigurationAnimationComponets()
+    @State var angle: CGFloat = 0
 
     var body: some View {
-        s.ClockWiseAtomShell(numberOfBalls: 10, radius: 100, color: .red)
+        s.ClockWiseAtomShell(numberOfBalls: 10, radius: 100, color: .red, angle: $angle)
     }
 }
 
